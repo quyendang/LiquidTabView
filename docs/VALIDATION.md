@@ -1,28 +1,28 @@
-# Kiểm chứng
+# Validation
 
-Bản phân phối ngày 30/10/2026. Source Swift/Kotlin không đổi so với hai file đã tích hợp và kiểm tra trong app demo.
+Distribution dated October 30, 2026. The Swift and Kotlin files are unchanged from the components integrated and tested in the demo apps.
 
-## Build và kiểm tra tự động
+## Builds and automated checks
 
-- Xcode: iOS Simulator và generic iOS device build thành công. Device build tắt code signing, không phải IPA có thể cài lên iPhone thật.
-- Swift motion checks: 12 hướng chuyển, retarget liên tục, press/release/cancel, 2–5 tab, input 30/60/120Hz và Reduce Motion đều đạt.
-- Android: `:app:testDebugUnitTest :app:assembleDebug --offline` thành công, 8 tests, 0 failures/errors.
-- APK demo đã cài lên Pixel 7 và Pixel 10 Emulator.
-- App iOS không có file `default.metallib` bên ngoài; shader nhúng chạy được trên iOS 26.3 và iOS 27 Simulator.
+- Xcode builds succeeded for iOS Simulator and generic iOS devices. The device build used disabled code signing; it is not an IPA ready to install on a physical iPhone.
+- Swift motion checks passed: 12 transition directions, continuous retargeting, press/release/cancel, 2–5 tabs, input sampling at 30/60/120 Hz, and Reduce Motion.
+- Android: `:app:testDebugUnitTest :app:assembleDebug --offline` succeeded, with eight tests and no failures or errors.
+- The demo APK was installed on a Pixel 7 and Pixel 10 Emulator.
+- The iOS app has no external `default.metallib`; its embedded shader ran on iOS 26.3 and iOS 27 Simulators.
 
-## Giao diện và thao tác
+## Layouts and interactions
 
-- Cả hai nền tảng: chọn tab cuối trong 6 cấu hình gồm 4+action, 3+action, 2+action, 3, 2 và 5 tab không action. Ảnh [iOS](media/ios-layouts.jpg) / [Android](media/android-layouts.jpg) chụp sau settle.
-- Video README được quay mới từ bản component đã đóng gói: iOS 27 Coral/light và Android 17 Coral/dark.
-- iOS: giữ, swipe qua khoảng cách xa, quay lại và chạm chọn. Android: kéo 1.8 giây mỗi hướng từ Home đến Account và quay lại.
-- iOS 26.3 đã thử mở action riêng sau khi chuyển tab. Các trang trong bản ghi là dữ liệu mẫu.
+- Both platforms: selected the last tab in six configurations — 4, 3, or 2 tabs with an action button, and 3, 2, or 5 tabs without one. The [iOS](media/ios-layouts.jpg) and [Android](media/android-layouts.jpg) screenshots were captured after the animation settled.
+- README videos were recorded from the packaged components: iOS 27 in Coral/light mode and Android 17 in Coral/dark mode.
+- iOS: hold, swipe across distant tabs, return, and tap to select. Android: drag for 1.8 seconds in each direction from Home to Account and back.
+- On iOS 26.3, the separate action button was also tested after switching tabs. Pages in the recordings use sample data.
 
-## Phạm vi chưa kiểm tra
+## Not yet verified
 
-- Chưa đo FPS, jank hoặc độ trễ bằng Instruments/Macrobenchmark.
-- Chưa chạy trên iPhone thật; chưa visual QA fallback Android API 31–32.
-- XCTest UI runner ở môi trường demo không khởi chạy được; không tính suite đó là đã đạt. Kiểm tra giao diện trên đây thực hiện qua thao tác thiết bị và xem bản ghi.
-- RTL hiện không tự mirror; thứ tự tab từ trái sang phải theo danh sách.
-- Swift giữ cây view của các tab. Compose giữ state saveable; state chỉ dùng `remember` sẽ không được giữ khi trang rời composition.
+- FPS, jank, and latency have not been measured with Instruments or Macrobenchmark.
+- Physical iPhone execution and visual QA of the Android API 31–32 fallback remain outstanding.
+- The demo environment's XCTest UI runner failed to start; that suite is not counted as passing. The UI checks above used device interactions and recording review.
+- RTL layouts do not automatically mirror; tabs follow the supplied list from left to right.
+- Swift preserves each tab's view tree. Compose preserves saveable state; plain `remember` state is not retained when a page leaves composition.
 
-Các kết quả trên thuộc demo tích hợp, không phải CI đang chạy trong repository này.
+These results come from the integration demos, not from CI running in this repository.

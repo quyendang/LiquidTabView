@@ -1,7 +1,7 @@
 # Shader source
 
-`liquidLens.metal` là source của shader icon đã nhúng trong `LiquidTabView.swift`. Không cần thêm file này vào app khi dùng component.
+`liquidLens.metal` is the source of the icon shader embedded in `LiquidTabView.swift`. You do not need to add this file to your app to use the component.
 
-SwiftUI sử dụng hai thư viện Metal được biên dịch riêng cho iPhone và Simulator, minimum iOS 26.0, rồi lưu dạng Base64 trong `LiquidLensShader`. Nếu thay shader, phải biên dịch lại cho cả hai target và thay cả hai khối dữ liệu; đổi Swift tint/icon/tab không cần bước này.
+The SwiftUI component uses two Metal libraries compiled separately for iPhone and Simulator, targeting iOS 26.0 or later, and stored as Base64 in `LiquidLensShader`. If you change the shader, recompile it for both targets and replace both data blocks. Changing the Swift tint, icons, or tabs does not require recompilation of the shader.
 
-Android giữ AGSL trực tiếp trong `LiquidTabView.kt`. Hai shader dùng cùng ý tưởng khúc xạ nhưng không phải mã nội bộ hoặc thuật toán được cung cấp bởi Apple.
+Android keeps its AGSL source directly in `LiquidTabView.kt`. The shaders share the same refraction approach; neither is Apple's internal shader code or an algorithm supplied by Apple.

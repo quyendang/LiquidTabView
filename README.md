@@ -1,61 +1,63 @@
 # LiquidTabView
 
-Custom tab view với capsule kính, hỗ trợ chạm và giữ/rê để đổi tab. **Copy một file Swift hoặc một file Kotlin vào project**, truyền danh sách tab và selection của bạn.
+**English** · [Tiếng Việt](README.vi.md)
 
-- 2–5 tab; tự thu gọn chiều rộng theo số tab.
-- Light/dark mode, đổi màu qua `tint`, icon tab và nút phụ tùy chỉnh.
-- Capsule giữ liên tục vị trí/vận tốc khi đổi đích; thả tay mới chọn tab.
-- `LiquidTabView` quản lý trang và vùng an toàn; `LiquidTabBar` dùng riêng với navigation có sẵn.
+A custom tab view with a glass capsule that supports tapping and press-and-drag selection. **Drop one Swift or Kotlin file into your project**, then provide your tabs and selection state.
 
-## Xem thử
+- 2–5 tabs, with a bar that sizes itself to the tab count.
+- Light and dark modes, a configurable `tint`, custom tab icons, and an optional action button.
+- Continuous capsule position and velocity when changing direction; dragging commits the selection on release.
+- `LiquidTabView` manages pages and bottom insets; `LiquidTabBar` works with your existing navigation.
 
-**iOS — Coral, light mode:** giữ capsule, chuyển qua tab xa rồi quay lại.
+## Preview
 
-![iOS: giữ capsule và chuyển tab](docs/media/ios-interaction.gif)
+**iOS — Coral, light mode:** hold the capsule, move across distant tabs, and return.
 
-[Video iOS MP4](docs/media/ios-interaction.mp4)
+![iOS: holding the glass capsule and switching tabs](docs/media/ios-interaction.gif)
 
-**Android — Coral, dark mode:** rê capsule từ tab đầu sang tab cuối và trở lại.
+[Watch the iOS MP4](docs/media/ios-interaction.mp4)
 
-![Android: rê capsule qua các tab](docs/media/android-interaction.gif)
+**Android — Coral, dark mode:** drag the capsule from the first tab to the last and back.
 
-[Video Android MP4](docs/media/android-interaction.mp4)
+![Android: dragging the capsule across tabs](docs/media/android-interaction.gif)
 
-GIF/video được cắt từ bản ghi demo thực tế, giữ tốc độ thời gian thực và xuất 30fps. Đây là minh họa tương tác, không phải phép đo FPS. iOS minh họa thao tác giữ rồi swipe; Android minh họa một lần kéo liên tục theo mỗi hướng.
+[Watch the Android MP4](docs/media/android-interaction.mp4)
+
+These clips are cropped from actual demo recordings, played at real-time speed and exported at 30 fps. They illustrate interaction, not measured rendering performance. The iOS clip shows separate hold and swipe gestures; Android shows a continuous drag in each direction. The recorded demo UI uses Vietnamese labels; the integration examples below use English.
 
 <details>
-<summary><strong>6 bố cục — có và không có nút phụ</strong></summary>
+<summary><strong>Six layouts — with and without an action button</strong></summary>
 
 <table>
   <tr><th>SwiftUI · Light</th><th>Compose · Dark</th></tr>
   <tr>
-    <td><img src="docs/media/ios-layouts.jpg" width="340" alt="iOS: 4, 3, 2 tab có action; 3, 2, 5 tab không action"></td>
-    <td><img src="docs/media/android-layouts.jpg" width="340" alt="Android: 4, 3, 2 tab có action; 3, 2, 5 tab không action"></td>
+    <td><img src="docs/media/ios-layouts.jpg" width="340" alt="iOS: 4, 3, and 2 tabs with an action; 3, 2, and 5 tabs without an action"></td>
+    <td><img src="docs/media/android-layouts.jpg" width="340" alt="Android: 4, 3, and 2 tabs with an action; 3, 2, and 5 tabs without an action"></td>
   </tr>
 </table>
 
-Ảnh chụp sau khi chọn tab cuối ở từng bố cục. Nút cúp và các trang là nội dung demo do caller cung cấp; component không phụ thuộc vào chúng.
+Screenshots show each layout after selecting its last tab and letting the animation settle. The trophy button and pages are caller-provided demo content; the component does not depend on them.
 
 </details>
 
-## Cài đặt
+## Installation
 
-| Nền tảng | File cần copy | Yêu cầu |
+| Platform | File to copy | Requirements |
 | --- | --- | --- |
-| SwiftUI | [LiquidTabView.swift](LiquidTabView.swift) | iOS 26+, Swift 6, SDK iOS 26+ |
-| Jetpack Compose | [LiquidTabView.kt](LiquidTabView.kt) | Android 12 / API 31+, Compose UI/Foundation/Animation và Material3 |
+| SwiftUI | [LiquidTabView.swift](LiquidTabView.swift) | iOS 26+, Swift 6, iOS 26+ SDK |
+| Jetpack Compose | [LiquidTabView.kt](LiquidTabView.kt) | Android 12 / API 31+, Compose UI, Foundation, Animation, and Material3 |
 
-**iOS:** thêm file Swift vào app target. Shader cho iPhone và Simulator đã nhúng trong file; không cần asset, file Metal hay build script riêng.
+**iOS:** add the Swift file to your app target. The iPhone and Simulator shaders are embedded in the file; no separate assets, Metal file, or build script is required.
 
-**Android:** thêm file Kotlin vào source set và đổi dòng `package studio.greenglass.demo` cho đúng project. Demo đã build bằng Compose BOM `2026.06.01`, compile SDK 36; chưa xác nhận mọi BOM cũ. AGSL refraction cần API 33+; API 31–32 dùng capsule màu/scale cùng backdrop blur.
+**Android:** add the Kotlin file to your source set and change `package studio.greenglass.demo` to your project's package. The demo was built with Compose BOM `2026.06.01` and compile SDK 36; compatibility with older BOMs has not been verified. AGSL refraction requires API 33+. API 31–32 use a tinted, scaling capsule with backdrop blur.
 
-Có thể tải từng file bằng nút **Raw → Download**, hoặc clone repo:
+Download an individual file using GitHub's **Download raw file** button, or clone the repository:
 
 ```sh
 git clone https://github.com/quyendang/LiquidTabView.git
 ```
 
-Repo phân phối component và tài liệu, không kèm project demo hoặc APK. Chỉ cần copy file của nền tảng bạn dùng.
+This repository contains the components and documentation, without the demo app projects or APK. Copy only the file for your platform.
 
 ## SwiftUI
 
@@ -72,34 +74,34 @@ struct AppRoot: View {
         LiquidTabView(
             selection: $selected,
             tabs: [
-                LiquidTab("Trang chủ", systemImage: "house.fill", value: .home),
-                LiquidTab("Đã lưu", systemImage: "bookmark.fill", value: .saved),
-                LiquidTab("Tài khoản", systemImage: "person.fill", value: .profile)
+                LiquidTab("Home", systemImage: "house.fill", value: .home),
+                LiquidTab("Saved", systemImage: "bookmark.fill", value: .saved),
+                LiquidTab("Profile", systemImage: "person.fill", value: .profile)
             ],
             tint: Color(red: 1, green: 138.0 / 255, blue: 112.0 / 255),
-            action: LiquidTabAction("Tạo mới", systemImage: "plus") { showCompose = true }
+            action: LiquidTabAction("Create", systemImage: "plus") { showCompose = true }
         ) { tab in
             NavigationStack {
                 switch tab {
-                case .home: Text("Trang chủ").navigationTitle("Trang chủ")
-                case .saved: Text("Đã lưu").navigationTitle("Đã lưu")
-                case .profile: Text("Tài khoản").navigationTitle("Tài khoản")
+                case .home: Text("Home").navigationTitle("Home")
+                case .saved: Text("Saved").navigationTitle("Saved")
+                case .profile: Text("Profile").navigationTitle("Profile")
                 }
             }
         }
-        .sheet(isPresented: $showCompose) { Text("Tạo mới") }
+        .sheet(isPresented: $showCompose) { Text("Create") }
     }
 }
 ```
 
-- Mỗi tab có cây view riêng, giữ `@State` và `NavigationStack` khi chuyển tab. `selection` thuộc caller; đổi binding từ code vẫn có animation.
-- `LiquidTabView` dùng `safeAreaInset`; ScrollView/List nhận vùng an toàn cho bar. Đặt `NavigationStack` **trong từng tab** nếu muốn giữ navigation riêng.
-- Icon asset: `LiquidTab("Đã lưu", image: Image("savedIcon"), value: .saved)`. Component scale-to-fit trong khung 22pt; dùng asset template để tint áp dụng.
-- Nút phụ custom: `LiquidTabAction("Tạo mới", action: openComposer) { Image(systemName: "plus.circle.fill") }`. Label có thể là bất kỳ View, kể cả hình nhiều màu.
-- Bỏ `action` để không hiện nút và khoảng trống bên phải. Dùng `iconTint` nếu muốn tự chọn màu icon bên trong capsule khi nghỉ. Màu mặc định được tính từ `tint`.
-- Tự xử lý navigation/safe area: dùng `LiquidTabBar(selection:tabs:tint:iconTint:action:reduceMotion:)` trong overlay hoặc `safeAreaInset`. Bar cao 64pt; caller thêm khoảng cách và padding.
-- Theo light/dark của môi trường; hỗ trợ Reduce Motion và Reduce Transparency. Có thể truyền `reduceMotion: true` riêng.
-- Với màn hình ProMotion, có thể bật `CADisableMinimumFrameDurationOnPhone = YES` trong Info.plist. Đây không phải cam kết đạt 120fps.
+- Each tab has its own view tree, preserving `@State` and `NavigationStack` when switching tabs. The caller owns `selection`; programmatic binding changes also animate.
+- `LiquidTabView` uses `safeAreaInset` so a `ScrollView` or `List` can account for the bar. Place a `NavigationStack` **inside each tab** for independent navigation.
+- Custom image: `LiquidTab("Saved", image: Image("savedIcon"), value: .saved)`. Icons scale to fit a 22-point frame. Use template rendering for tintable assets.
+- Custom action: `LiquidTabAction("Create", action: openComposer) { Image(systemName: "plus.circle.fill") }`. The label can be any view, including a multicolor image.
+- Omit `action` to remove the button and its spacing. Set `iconTint` to override the icon color inside the resting capsule; its default is derived from `tint`.
+- To manage navigation and insets yourself, use `LiquidTabBar(selection:tabs:tint:iconTint:action:reduceMotion:)` in an overlay or `safeAreaInset`. The bar is 64 points tall; the caller supplies outer spacing and padding.
+- The component follows the environment's color scheme and supports Reduce Motion and Reduce Transparency. You can also pass `reduceMotion: true` directly.
+- For ProMotion displays, you can set `CADisableMinimumFrameDurationOnPhone = YES` in Info.plist. This does not guarantee 120 fps.
 
 ## Kotlin / Compose
 
@@ -118,57 +120,57 @@ fun AppRoot() {
     var selected by rememberSaveable { mutableStateOf("home") }
     var composing by rememberSaveable { mutableStateOf(false) }
     val tabs = listOf(
-        LiquidTab("home", "Trang chủ") { Icon(Icons.Default.Home, null) },
-        LiquidTab("saved", "Đã lưu") { Icon(Icons.Default.Favorite, null) },
-        LiquidTab("profile", "Tài khoản") { Icon(Icons.Default.Person, null) }
+        LiquidTab("home", "Home") { Icon(Icons.Default.Home, null) },
+        LiquidTab("saved", "Saved") { Icon(Icons.Default.Favorite, null) },
+        LiquidTab("profile", "Profile") { Icon(Icons.Default.Person, null) }
     )
     LiquidTabView(
         selectedTab = selected,
         onTabSelected = { selected = it },
         tabs = tabs,
         tint = Color(0xFFFF8A70),
-        action = LiquidTabAction("Tạo mới", { composing = true }) {
+        action = LiquidTabAction("Create", { composing = true }) {
             Icon(Icons.Default.Add, null)
         }
     ) { tab, padding ->
         Box(Modifier.fillMaxSize().padding(padding)) {
             Text(when (tab) {
-                "home" -> "Trang chủ"
-                "saved" -> "Đã lưu"
-                else -> "Tài khoản"
+                "home" -> "Home"
+                "saved" -> "Saved"
+                else -> "Profile"
             })
         }
     }
     if (composing) {
         AlertDialog(onDismissRequest = { composing = false },
-            title = { Text("Tạo mới") },
-            confirmButton = { TextButton(onClick = { composing = false }) { Text("Đóng") } })
+            title = { Text("Create") },
+            confirmButton = { TextButton(onClick = { composing = false }) { Text("Close") } })
     }
 }
 ```
 
-- Component dùng slot icon, không phụ thuộc `material-icons-extended`. Ví dụ dùng Material icons; có thể thay bằng `Icon(painterResource(R.drawable.ic_home), null)` hoặc icon library của project.
-- Icon slot có khung 22dp. Để `Icon` dùng tint mặc định từ `LocalContentColor`; tự gán tint bên trong slot sẽ ghi đè màu ở lớp icon thường. Lớp khúc xạ vẫn dùng mask alpha của icon để tô theo tint của capsule.
-- Nội dung nhận `PaddingValues` đáy. Với `LazyColumn`, truyền vào `contentPadding` để vẫn cuộn được phía dưới kính. Không cộng lại navigation-bar inset này lần thứ hai; status-bar inset vẫn thuộc trang.
-- `LiquidTabView` tự ghi backdrop nền và giữ state qua `SaveableStateHolder`. State trang cần `rememberSaveable`; `remember` đơn thuần không được giữ sau khi trang rời composition. Navigation/back stack/ViewModel vẫn do project quản lý.
-- ID dùng String, Int, enum hoặc kiểu saveable của Android. Không thay ID mỗi lần recomposition.
-- `action = null` hoặc bỏ tham số để ẩn nút. `iconTint` chỉnh icon nghỉ; `dark` mặc định theo hệ thống. Nếu app có theme riêng, truyền `dark = appDarkMode`.
-- `reduceMotion` hoặc system animation scale bằng 0 sẽ bỏ chuyển động.
-- API 33+ dùng AGSL refraction. API 31–32 giữ capsule màu/scale và backdrop blur; không có shader refraction như Android 13+.
-- Dùng `LiquidTabBar` riêng khi project đã sở hữu content layer. Tham số `backdrop` phải ghi **chỉ trang**, không ghi chính tabbar, và layer phải bắt đầu ở gốc root coordinate. Dùng `LiquidTabView` nếu muốn component tự xử lý phần này, kể cả khi container có padding.
+- Tab icons are composable slots. The component does not depend on `material-icons-extended`. The example uses Material icons; you can use `Icon(painterResource(R.drawable.ic_home), null)` or your project's icon library instead.
+- The icon slot is 22 dp. Let `Icon` inherit its tint from `LocalContentColor`; specifying a tint inside the slot overrides the regular icon layer's color. The refraction layer uses the icon's alpha mask to apply the capsule's icon tint.
+- Page content receives bottom `PaddingValues`. For a `LazyColumn`, pass these as `contentPadding` to let content scroll behind the glass. Do not add the navigation-bar inset a second time; the page still owns its status-bar inset.
+- `LiquidTabView` records the backdrop and preserves saveable page state through `SaveableStateHolder`. Use `rememberSaveable` for state that should survive tab changes. Plain `remember` state is lost when the page leaves composition. Your project still owns navigation, back stacks, and ViewModels.
+- Use a String, Int, enum, or another Android-saveable type for tab IDs. Keep IDs stable across recompositions.
+- Omit `action` or pass `null` to hide the button. `iconTint` controls resting icons. `dark` follows the system by default; pass `dark = appDarkMode` when your app has its own theme setting.
+- `reduceMotion` or a system animation scale of zero disables motion.
+- API 33+ uses AGSL refraction. API 31–32 retain the tinted/scaling capsule and backdrop blur, without the refraction shader.
+- Use `LiquidTabBar` directly if your project already owns a content layer. Its `backdrop` must record **only the page**, not the tab bar itself, and must start at the root coordinate origin. Use `LiquidTabView` to manage this automatically, including when its container has padding.
 
-## Quy ước chung
+## Behavior and configuration
 
-2–5 tab, ID duy nhất, selection phải có trong danh sách. Khi đổi danh sách mà loại tab đang chọn, đổi selection sang một ID còn tồn tại trong cùng cập nhật. Sai cấu hình sẽ báo lỗi sớm thay vì hiển thị capsule sai tab. Thứ tự hiển thị hiện theo danh sách từ trái sang phải; nút phụ ở bên phải.
+Provide 2–5 tabs with unique IDs, and ensure the selected ID belongs to the list. If a list update removes the selected tab, update the selection to a remaining ID in the same update. Invalid configuration fails early instead of placing the capsule over the wrong tab. Tabs currently appear in list order from left to right, with the optional action button on the right.
 
-Chạm đổi tab; giữ/rê điều khiển capsule; thả mới commit selection. Thả ngoài vùng cho phép thì hủy. Không có badge, nhãn dưới icon, tab ẩn hay nút More. Chỉ thêm chúng khi sản phẩm cần.
+Tap to select a tab. Press and drag to move the capsule, then release to commit the selection. Releasing outside the allowed area cancels the change. Badges, labels beneath icons, hidden tabs, and a More menu are not included.
 
-Swift dùng native Liquid Glass và shader icon đã biên dịch, nhúng hai thư viện cho iPhone/Simulator ở cuối vùng UI trong file. Khối Base64 là shader, không phải logic dư. Không sửa khối này nếu chỉ đổi màu/icon/tab. Metal source gốc được lưu để bảo trì tại [`maintenance/liquidLens.metal`](maintenance/liquidLens.metal); **không cần copy** file đó để sử dụng component. Android giữ shader AGSL dạng chuỗi ngay trong Kotlin.
+Swift uses native Liquid Glass and a compiled icon shader, with separate iPhone and Simulator libraries embedded in the Swift file. The Base64 blocks contain those shaders. Leave them unchanged when customizing colors, icons, or tabs. The original Metal source is available in [`maintenance/liquidLens.metal`](maintenance/liquidLens.metal) for maintenance; **you do not need to copy it into your app**. Android keeps the AGSL shader as a string inside the Kotlin file.
 
-API được giữ nhỏ: tab, selection, tint/iconTint, action, reduceMotion; Android thêm modifier/dark/backdrop cho nhu cầu của Compose. Mô hình spring/tracking và phần dựng kính nằm private/internal trong cùng file. Không thay bằng animation tuyến tính chỉ để giảm số dòng.
+The API exposes tabs, selection, tint/iconTint, an optional action, and reduced motion. Compose also exposes modifier, dark mode, and backdrop parameters where applicable. The spring/tracking model and glass rendering stay private or internal to each file.
 
-## Kiểm chứng và giới hạn
+## Validation and limitations
 
-Đã build bằng Xcode cho iOS Simulator và generic iPhone device; Swift motion checks và 8 Android JUnit tests đều đạt. Hai file này giống byte với component trong demo đã kiểm tra. Xem [chi tiết kiểm chứng](docs/VALIDATION.md).
+The demo passed Xcode builds for iOS Simulator and generic iPhone devices, Swift motion checks, and eight Android JUnit tests. The two distributed files are byte-for-byte identical to the components used in that demo. See the [validation notes](docs/VALIDATION.md).
 
-Đã chạy trên iOS 26.3/27 Simulator, Android 17 Emulator và cài APK demo lên Pixel 7. Chưa đo FPS/latency, chưa kiểm tra trên iPhone thật hoặc visual QA Android 12–12L. Không cam kết khớp từng pixel với tabbar Apple; iOS dùng Liquid Glass native, Android dùng backdrop blur và AGSL.
+The component has run on iOS 26.3/27 Simulators and an Android 17 Emulator; the demo APK was also installed on a Pixel 7. FPS and latency have not been measured, and physical iPhone testing and visual QA on Android 12–12L remain outstanding. The platforms do not promise pixel-identical rendering: iOS uses native Liquid Glass, while Android uses backdrop blur and AGSL.
